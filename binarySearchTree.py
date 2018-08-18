@@ -170,7 +170,8 @@ class BST():
 			return self.searchNode(currentNode.right, value) 
 
 
-	
+	# delete function incomplete
+	# need to write more tests
 	def delete(self, value):
 
 		# if root is empty, return
