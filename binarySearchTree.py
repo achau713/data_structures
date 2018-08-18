@@ -189,10 +189,6 @@ class BST():
 		if currentNode is None:
 			return 
 
-		# if we found the value, delete the value by setting the value of the node to be None	
-		elif value == currentNode.value: 
-			currentNode.value = None
-
 		# check if value is less or equal to the value of current node
 		# if it is, go down left subtree
 		# in other words, make a recursive call to left subtree
@@ -202,8 +198,39 @@ class BST():
 		# check if value is greater than the value of current node
 		# if it is, go down right subtree
 		# in other words, make a recursive call to right subtree
-		else: 
+		elif value > currentNode.value:
 			self.deleteNode(currentNode.right, value) 
+
+		# 3 cases: leaf node, node with one child, node with two child	
+		else:
+			# node is a leaf
+			# delete node by setting equal to None
+			if currentNode.left is None and currentNode.right is None:
+				currentNode.value = None
+
+			# node has no left child
+			# attach right child of currentNode as right child of parent node
+			# delete right child of currentNode
+			elif currentNode.left is None:
+				self.root.right = currentNode.right
+				currentNode.right = None
+
+			# node has no right child
+			# attach left child of currentNode as left child of parent node
+			# delete left child of currentNode
+			elif currentNode.right is None:
+				self.root.left = currentNode.left
+				currentNode.left = None
+
+			# node has both left child and right child	
+			# find minimum of right subtree and set as value of current node
+			# delete original right child of right subtree
+			else:
+				minRightSubtree = self.min()
+				self.root.value = minRightSubtree
+				self.root.right = currentNode.right
+				currentNode.right = None
+
 
 	
 	def height(self):
