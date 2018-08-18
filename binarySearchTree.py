@@ -209,14 +209,14 @@ class BST():
 				currentNode.value = None
 
 			# node has no left child
-			# attach right child of currentNode as right child of parent node
+			# set right child of parent node as right child of currentNode
 			# delete right child of currentNode
 			elif currentNode.left is None:
 				self.root.right = currentNode.right
 				currentNode.right = None
 
 			# node has no right child
-			# attach left child of currentNode as left child of parent node
+			# set left child of parent node as left child of currentNode
 			# delete left child of currentNode
 			elif currentNode.right is None:
 				self.root.left = currentNode.left
@@ -227,11 +227,9 @@ class BST():
 			# delete original right child of right subtree
 			else:
 				minRightSubtree = self.min()
-				self.root.value = minRightSubtree
-				self.root.right = currentNode.right
-				currentNode.right = None
-
-
+				currentNode.value = minRightSubtree
+				currentNode.right = self.deleteNode(currentNode.right, value)
+				
 	
 	def height(self):
 		""" Call function getHeight to return height of BST
